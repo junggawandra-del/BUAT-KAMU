@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Untuk Kamu ❤️</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    touch-action: manipulation;
+    -webkit-text-size-adjust: 100%;
+    -ms-touch-action: manipulation;
+    overscroll-behavior: none;
+  }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: linear-gradient(135deg, #1a0010 0%, #4a0e2e 50%, #1a0010 100%);
+    color: #fff;
+    overflow-x: hidden;
+    min-height: 100vh;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* ===== LOADING SCREEN ===== */
+  #loader {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #2b0015, #6b1540);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 1s ease, visibility 1s ease;
+  }
+  #loader.hide { opacity: 0; visibility: hidden; }
+
+  .heart-load {
+    width: 80px;
+    height: 80px;
+    background: #ff3366;
+    position: relative;
+    transform: rotate(-45deg);
+    animation: heartbeat 1.2s infinite;
+    box-shadow: 0 0 40px rgba(255,51,102,0.8);
+  }
+  .heart-load::before,
+  .heart-load::after {
+    content: '';
+    width: 80px;
+    height: 80px;
+    background: #ff3366;
+    border-radius: 50%;
+    position: absolute;
+  }
+  .heart-load::before { top: -40px; left: 0; }
+  .heart-load::after { top: 0; left: 40px; }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: rotate(-45deg) scale(1); }
+    50% { transform: rotate(-45deg) scale(1.2); }
+  }
+
+  .loader-text {
+    margin-top: 80px;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    color: #ffb3cc;
+    animation: fadeText 2s infinite;
+  }
+  @keyframes fadeText {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  .loader-bar {
+    margin-top: 20px;
+    width: 200px;
+    height: 3px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .loader-bar span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #ff3366, #ff99bb);
+    animation: loadBar 3s ease forwards;
+  }
+  @keyframes loadBar { to { width: 100%; } }
+
+  /* ===== ENTRY GATE ===== */
+  #entryGate {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, #6b1540, #1a0010);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9998;
+    transition: opacity 1s ease, visibility 1s ease;
+    text-align: center;
+    padding: 20px;
+  }
+  #entryGate.hide { opacity: 0; visibility: hidden; }
+
+  .gate-content { animation: popIn 0.8s ease; }
+  .gate-heart {
+    font-size: 6rem;
+    animation: floatHeart 2.5s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px rgba(255,51,102,0.9));
+  }
+  @keyframes floatHeart {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-15px) scale(1.1); }
+  }
+  .gate-content h2 {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 2.5rem;
+    margin: 20px 0 10px;
+    background: linear-gradient(90deg, #ff99bb, #ff3366);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .gate-content p {
+    color: #ffb3cc;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+  }
+  .gate-btn {
+    padding: 18px 45px;
+    border: 2px solid #ff6699;
+    border-radius: 50px;
+    background: rgba(255, 51, 102, 0.2);
+    color: #fff;
+    font-size: 1.2rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    animation: pulseGate 2s infinite;
+  }
+  .gate-btn:hover {
+    transform: scale(1.08);
+    background: linear-gradient(135deg, #ff3366, #ff6699);
+    box-shadow: 0 0 40px rgba(255,51,102,0.9);
+  }
+  @keyframes pulseGate {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,51,102,0.6); }
+    50% { box-shadow: 0 0 0 20px rgba(255,51,102,0); }
+  }
+
+  /* ===== FLOATING HEARTS ===== */
+  .hearts-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .float-heart {
+    position: absolute;
+    bottom: -50px;
+    font-size: 20px;
+    color: rgba(255, 102, 153, 0.6);
+    animation: floatUp linear infinite;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* ===== MAIN ===== */
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  .title {
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-family: 'Brush Script MT', cursive;
+    background: linear-gradient(90deg, #ff99bb, #ff3366, #ff99bb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+    animation: glow 3s ease-in-out infinite;
+  }
+  @keyframes glow {
+    0%, 100% { filter: drop-shadow(0 0 10px rgba(255,51,102,0.5)); }
+    50% { filter: drop-shadow(0 0 25px rgba(255,51,102,1)); }
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: #ffb3cc;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+    opacity: 0;
+    animation: fadeInUp 1.5s ease 0.5s forwards;
+  }
+
+  /* ===== SLIDESHOW FOTO KOTAK (DIPERKECIL) ===== */
+  .slideshow {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    height: 420px;
+    margin: 0 auto 18px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(255, 51, 102, 0.4),
+                0 0 0 3px rgba(255, 153, 187, 0.3);
+    opacity: 0;
+    animation: fadeInUp 1.5s ease 1s forwards;
+  }
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.5s ease, transform 6s ease;
+    transform: scale(1);
+  }
+  .slide.active {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .slide-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 40px 20px 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+    font-family: 'Brush Script MT', cursive;
+    font-size: 1.6rem;
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(255,51,102,0.8);
+  }
+
+  /* ===== DOTS DI LUAR FOTO ===== */
+  .slide-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 0 auto 40px;
+    opacity: 0;
+    animation: fadeInUp 1.5s ease 1.2s forwards;
+  }
+  .slide-dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 153, 187, 0.35);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 6px rgba(255, 51, 102, 0.4);
+  }
+  .slide-dots span:hover {
+    background: rgba(255, 153, 187, 0.7);
+    transform: scale(1.2);
+  }
+  .slide-dots span.active {
+    background: #ff6699;
+    box-shadow: 0 0 12px #ff6699, 0 0 20px rgba(255,51,102,0.6);
+    width: 30px;
+    border-radius: 5px;
+  }
+
+  /* ===== MESSAGE ===== */
+  .message {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 153, 187, 0.3);
+    border-radius: 20px;
+    padding: 30px;
+    margin: 30px auto;
+    max-width: 600px;
+    opacity: 0;
+    animation: fadeInUp 1.5s ease 1.5s forwards;
+    line-height: 1.8;
+    font-size: 1.05rem;
+    color: #ffdde8;
+  }
+
+  .message .signature {
+    display: block;
+    margin-top: 20px;
+    font-family: 'Brush Script MT', cursive;
+    font-size: 1.5rem;
+    color: #ff6699;
+  }
+
+  .section-title {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 2.2rem;
+    margin: 50px 0 20px;
+    color: #ff99bb;
+    text-shadow: 0 0 20px rgba(255,51,102,0.5);
+  }
+
+  /* ===== BUTTON ===== */
+  .btn-love {
+    margin-top: 20px;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ff3366, #ff6699);
+    color: #fff;
+    font-size: 1.1rem;
+    font-family: inherit;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(255,51,102,0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .btn-love:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(255,51,102,0.8);
+  }
+  .btn-love:active { transform: scale(0.98); }
+
+  /* ===== GAME ===== */
+  .game-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    height: 400px;
+    margin: 20px auto 10px;
+    background: radial-gradient(ellipse at top, #4a0e2e, #1a0010);
+    border: 2px solid rgba(255, 153, 187, 0.4);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(255, 51, 102, 0.3);
+    touch-action: none;
+  }
+  .game-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(2px 2px at 20% 30%, rgba(255,153,187,0.6), transparent),
+      radial-gradient(1px 1px at 60% 20%, rgba(255,153,187,0.4), transparent),
+      radial-gradient(1.5px 1.5px at 80% 60%, rgba(255,153,187,0.5), transparent),
+      radial-gradient(1px 1px at 40% 80%, rgba(255,153,187,0.4), transparent);
+    pointer-events: none;
+  }
+
+  .game-hud {
+    position: absolute;
+    top: 12px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-size: 1rem;
+    color: #ffdde8;
+    z-index: 5;
+    letter-spacing: 1px;
+  }
+  .game-hud b { color: #ff6699; font-size: 1.2rem; }
+
+  .falling-heart {
+    position: absolute;
+    font-size: 36px;
+    cursor: pointer;
+    user-select: none;
+    z-index: 3;
+    transition: transform 0.15s ease;
+    filter: drop-shadow(0 0 8px rgba(255,51,102,0.8));
+  }
+  .falling-heart.popped {
+    animation: pop 0.4s ease forwards;
+    pointer-events: none;
+  }
+  @keyframes pop {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(2.5); opacity: 0; }
+  }
+
+  .score-pop {
+    position: absolute;
+    color: #ffcc00;
+    font-weight: bold;
+    font-size: 1.2rem;
+    pointer-events: none;
+    animation: scoreUp 0.8s ease forwards;
+    z-index: 6;
+  }
+  @keyframes scoreUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-50px); opacity: 0; }
+  }
+
+  .game-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 0, 16, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    backdrop-filter: blur(5px);
+    padding: 20px;
+    text-align: center;
+  }
+  .game-overlay.hide { display: none; }
+  .game-overlay h3 {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 2rem;
+    color: #ff99bb;
+    margin-bottom: 15px;
+  }
+  .game-overlay p {
+    color: #ffdde8;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  /* ===== WEBHOOK FORM ===== */
+  .reply-box {
+    max-width: 600px;
+    margin: 30px auto;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 153, 187, 0.3);
+    border-radius: 20px;
+    padding: 30px;
+  }
+  .reply-box p.hint {
+    color: #ffb3cc;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+  .reply-box textarea {
+    width: 100%;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 153, 187, 0.4);
+    background: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.3s ease;
+    resize: vertical;
+    min-height: 120px;
+  }
+  .reply-box textarea:focus {
+    border-color: #ff6699;
+    box-shadow: 0 0 15px rgba(255, 51, 102, 0.5);
+    background: rgba(0, 0, 0, 0.5);
+  }
+  .reply-box ::placeholder { color: rgba(255, 179, 204, 0.5); }
+
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: linear-gradient(135deg, #ff3366, #ff6699);
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(255,51,102,0.6);
+    transition: transform 0.5s ease;
+    z-index: 9999;
+    font-family: inherit;
+    max-width: 90vw;
+    text-align: center;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ===== POPUP ===== */
+  .popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+  }
+  .popup.show { display: flex; animation: fadeIn 0.4s ease; }
+  .popup-content {
+    background: linear-gradient(135deg, #6b1540, #2b0015);
+    padding: 40px 30px;
+    border-radius: 20px;
+    max-width: 450px;
+    text-align: center;
+    border: 2px solid #ff6699;
+    box-shadow: 0 0 60px rgba(255,51,102,0.6);
+    animation: popIn 0.5s ease;
+  }
+  .popup-content h2 {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 2rem;
+    color: #ff99bb;
+    margin-bottom: 15px;
+  }
+  .popup-content p {
+    color: #ffdde8;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  @keyframes popIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  /* ===== MUSIC BUTTON (MUTE TOGGLE) ===== */
+  .music-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 51, 102, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid #ff6699;
+    color: #fff;
+    font-size: 1.3rem;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.3s ease;
+    display: none;
+  }
+  .music-btn.ready { display: block; }
+  .music-btn:hover { transform: scale(1.1); background: rgba(255, 51, 102, 0.6); }
+  .music-btn.playing { animation: pulse 1.5s infinite; }
+  .music-btn.muted {
+    background: rgba(100, 100, 100, 0.3);
+    border-color: #888;
+    animation: none;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,51,102,0.7); }
+    50% { box-shadow: 0 0 0 15px rgba(255,51,102,0); }
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* ===== FALLING PETALS ===== */
+  .petal {
+    position: fixed;
+    top: -30px;
+    font-size: 18px;
+    pointer-events: none;
+    z-index: 1;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  @media (max-width: 600px) {
+    .slideshow { max-width: 340px; height: 340px; }
+    .message { padding: 20px; font-size: 1rem; }
+    .game-wrap { height: 350px; }
+    .reply-box { padding: 20px; }
+    .gate-content h2 { font-size: 1.8rem; }
+    .gate-heart { font-size: 4rem; }
+    .slide-caption { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== LOADING ===== -->
+<div id="loader">
+  <div class="heart-load"></div>
+  <div class="loader-text">Memuat</div>
+  <div class="loader-bar"><span></span></div>
+</div>
+
+<!-- ===== ENTRY GATE ===== -->
+<div id="entryGate">
+  <div class="gate-content">
+    <div class="gate-heart">💌</div>
+    <h2>Ada Surat Untukmu</h2>
+    <p>Ketuk untuk membuka</p>
+    <button class="gate-btn" id="enterBtn">Buka Sekarang 💕</button>
+  </div>
+</div>
+
+<!-- ===== FLOATING HEARTS ===== -->
+<div class="hearts-bg" id="heartsBg"></div>
+
+<!-- ===== MUTE BUTTON ===== -->
+<button class="music-btn" id="musicBtn" title="Mute/Unmute Musik">🔊</button>
+
+<!-- ===== AUDIO ===== -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="https://github.com/junggawandra-del/HANZ-STORE/raw/refs/heads/main/Champagne.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ===== MAIN ===== -->
+<div class="container">
+  <h1 class="title">Untuk Kamu, Cintaku 💕</h1>
+  <p class="subtitle">Setiap momen bersamamu adalah hadiah terindah</p>
+
+  <!-- ===== SLIDESHOW FOTO KOTAK (DIPERKECIL) ===== -->
+  <div class="slideshow" id="slideshow">
+    <!-- Foto 1 -->
+    <div class="slide active">
+      <img src="https://i.ibb.co.com/Q7jv8zrC/Proyek-Baru-2-5116-EAE.png"
+           alt="Foto 1"
+           onerror="this.src='https://picsum.photos/seed/love1/600/600'">
+      <div class="slide-caption">Senyummu, cahaya hidupku ✨</div>
+    </div>
+    <!-- Foto 2 -->
+    <div class="slide">
+      <img src="https://i.ibb.co.com/S7ZHq02T/Proyek-Baru-2-2-E8070-E.png"
+           alt="Foto 2"
+           onerror="this.src='https://picsum.photos/seed/love2/600/600'">
+      <div class="slide-caption">Bersamamu, dunia terasa indah 🌹</div>
+    </div>
+    <!-- Foto 3 -->
+    <div class="slide">
+      <img src="https://i.ibb.co.com/vCvbN5VJ/Proyek-Baru-2-39-DC59-A.png"
+           alt="Foto 3"
+           onerror="this.src='https://picsum.photos/seed/love3/600/600'">
+      <div class="slide-caption">Kita, dan cerita yang tak akan usai 💫</div>
+    </div>
+  </div>
+
+  <!-- ===== DOTS DI LUAR FOTO ===== -->
+  <div class="slide-dots" id="dots"></div>
+
+  <!-- ===== PESAN ===== -->
+  <div class="message">
+    <p>
+      Sayang,<br><br>
+      Terima kasih telah menjadi bagian terindah dalam hidupku.
+      Setiap detik yang kita lalui bersama adalah kenangan yang ingin kusimpan selamanya.
+      Kamu adalah alasan aku tersenyum setiap hari, dan tempat aku pulang.<br><br>
+      Aku mencintaimu lebih dari yang bisa diungkapkan kata-kata. 💕
+    </p>
+    <span class="signature">— Selamanya milikmu —</span>
+  </div>
+
+  <button class="btn-love" id="loveBtn">Klik Aku 💌</button>
+
+  <!-- ===== GAME ===== -->
+  <h2 class="section-title">Tangkap Hati Cinta</h2>
+  <p class="subtitle" style="animation:none;opacity:1;margin-bottom:20px;">
+    Tangkap hati yang jatuh & raih skor tertinggi!
+  </p>
+  <div class="game-wrap" id="gameWrap">
+    <div class="game-hud">
+      <span>❤️ Skor: <b id="score">0</b></span>
+      <span>⏱️ Waktu: <b id="timer">30</b>s</span>
+      <span>🏆 Best: <b id="best">0</b></span>
+    </div>
+    <div class="game-overlay" id="gameOverlay">
+      <h3>Tangkap Hati Cinta 💘</h3>
+      <p>Klik/ketuk hati yang jatuh dari atas.<br>Kamu punya 30 detik. Semangat!</p>
+      <button class="btn-love" id="startGame">Mulai Bermain 💕</button>
+    </div>
+  </div>
+
+  <!-- ===== WEBHOOK FORM ===== -->
+  <h2 class="section-title">💌 Kirim Balasanmu</h2>
+  <div class="reply-box">
+    <p class="hint">Tulis balasan atau pesan untukku. Pesan akan langsung terkirim ke hatiku</p>
+    <form id="webhookForm">
+      <textarea name="pesan" placeholder="Tulis pesanmu di sini..." required maxlength="500"></textarea>
+      <button type="submit" class="btn-love" style="width:100%;">Kirim Pesan</button>
+    </form>
+  </div>
+</div>
+
+<!-- ===== POPUP ===== -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <h2>Aku Cinta Kamu ❤️</h2>
+    <p>Bagi dunia kamu mungkin hanya satu orang, tapi bagi satu orang ini kamu adalah dunianya.</p>
+    <button class="btn-love" onclick="document.getElementById('popup').classList.remove('show')">Tutup 💕</button>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast">Pesan terkirim 💖</div>
+
+<script>
+/* =====================================================
+   ⚙️ KONFIGURASI WEBHOOK
+   ===================================================== */
+const WEBHOOK_URL = "https://discord.com/api/webhooks/1559656096325574678/3ymhVPc0KkjW-NiSFdqPjxJL1x1b7dvlauGZybU5Re6ZVXXUjXEvoOpyKNlC2-S0JxkU";
+
+/* =====================================================
+   ANTI-ZOOM
+   ===================================================== */
+document.addEventListener('gesturestart', e => e.preventDefault());
+document.addEventListener('gesturechange', e => e.preventDefault());
+document.addEventListener('gestureend', e => e.preventDefault());
+document.addEventListener('touchmove', (e) => {
+  if (e.touches.length > 1) e.preventDefault();
+}, { passive: false });
+document.addEventListener('wheel', (e) => {
+  if (e.ctrlKey) e.preventDefault();
+}, { passive: false });
+
+let lastTouchEnd = 0;
+document.addEventListener('touchend', (e) => {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) e.preventDefault();
+  lastTouchEnd = now;
+}, false);
+
+/* =====================================================
+   LOADING → ENTRY GATE → MUSIC
+   ===================================================== */
+const loader = document.getElementById('loader');
+const entryGate = document.getElementById('entryGate');
+const enterBtn = document.getElementById('enterBtn');
+const music = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
+
+setTimeout(() => loader.classList.add('hide'), 3200);
+
+enterBtn.addEventListener('click', () => {
+  music.muted = false;
+  music.play().then(() => {
+    musicBtn.classList.add('ready');
+    updateMusicBtn();
+  }).catch((err) => {
+    console.warn('Gagal memutar musik:', err);
+    musicBtn.classList.add('ready', 'muted');
+    musicBtn.textContent = '🔇';
+  });
+
+  entryGate.classList.add('hide');
+  startEffects();
+});
+
+/* =====================================================
+   MUTE TOGGLE
+   ===================================================== */
+function updateMusicBtn() {
+  if (music.muted) {
+    musicBtn.textContent = '🔇';
+    musicBtn.classList.add('muted');
+    musicBtn.classList.remove('playing');
+  } else {
+    musicBtn.textContent = '🔊';
+    musicBtn.classList.remove('muted');
+    if (!music.paused) musicBtn.classList.add('playing');
+  }
+}
+
+musicBtn.addEventListener('click', () => {
+  music.muted = !music.muted;
+
+  if (!music.muted && music.paused) {
+    music.play().catch(() => {});
+  }
+
+  updateMusicBtn();
+  showToast(music.muted ? '🔇 Musik di-mute' : '🔊 Musik dinyalakan',
+            music.muted
+              ? 'linear-gradient(135deg, #666, #888)'
+              : 'linear-gradient(135deg, #ff3366, #ff6699)');
+});
+
+/* =====================================================
+   SLIDESHOW FOTO KOTAK
+   ===================================================== */
+const slides = document.querySelectorAll('.slide');
+const dotsContainer = document.getElementById('dots');
+
+let current = 0;
+let slideTimer;
+
+slides.forEach((_, i) => {
+  const d = document.createElement('span');
+  if (i === 0) d.classList.add('active');
+  d.addEventListener('click', () => goToSlide(i));
+  dotsContainer.appendChild(d);
+});
+const dots = dotsContainer.querySelectorAll('span');
+
+function goToSlide(index) {
+  slides[current].classList.remove('active');
+  dots[current].classList.remove('active');
+  current = index;
+  slides[current].classList.add('active');
+  dots[current].classList.add('active');
+  resetSlideTimer();
+}
+
+function nextSlide() {
+  goToSlide((current + 1) % slides.length);
+}
+
+function resetSlideTimer() {
+  clearInterval(slideTimer);
+  slideTimer = setInterval(nextSlide, 4000);
+}
+resetSlideTimer();
+
+/* =====================================================
+   EFEK BACKGROUND
+   ===================================================== */
+let effectsStarted = false;
+function startEffects() {
+  if (effectsStarted) return;
+  effectsStarted = true;
+
+  const heartsBg = document.getElementById('heartsBg');
+  const heartSymbols = ['❤️', '💕', '💖', '💗', '💓', '🌸'];
+
+  function createHeart() {
+    const h = document.createElement('div');
+    h.className = 'float-heart';
+    h.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+    h.style.left = Math.random() * 100 + '%';
+    h.style.fontSize = (Math.random() * 20 + 15) + 'px';
+    h.style.animationDuration = (Math.random() * 8 + 8) + 's';
+    h.style.animationDelay = Math.random() * 3 + 's';
+    heartsBg.appendChild(h);
+    setTimeout(() => h.remove(), 18000);
+  }
+  setInterval(createHeart, 500);
+  for (let i = 0; i < 15; i++) setTimeout(createHeart, i * 200);
+
+  const petals = ['🌸', '🌹', '💐', '🌺'];
+  function createPetal() {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = petals[Math.floor(Math.random() * petals.length)];
+    p.style.left = Math.random() * 100 + '%';
+    p.style.fontSize = (Math.random() * 15 + 12) + 'px';
+    p.style.animationDuration = (Math.random() * 6 + 6) + 's';
+    p.style.animationDelay = Math.random() * 2 + 's';
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 14000);
+  }
+  setInterval(createPetal, 800);
+}
+
+/* =====================================================
+   POPUP CINTA
+   ===================================================== */
+document.getElementById('loveBtn').addEventListener('click', () => {
+  document.getElementById('popup').classList.add('show');
+  for (let i = 0; i < 30; i++) {
+    setTimeout(() => {
+      const h = document.createElement('div');
+      h.className = 'float-heart';
+      h.textContent = '❤️';
+      h.style.left = Math.random() * 100 + '%';
+      h.style.bottom = '0';
+      h.style.fontSize = (Math.random() * 20 + 15) + 'px';
+      h.style.animationDuration = '4s';
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 4000);
+    }, i * 30);
+  }
+});
+
+document.getElementById('popup').addEventListener('click', (e) => {
+  if (e.target.id === 'popup') e.target.classList.remove('show');
+});
+
+/* =====================================================
+   🎮 GAME: TANGKAP HATI CINTA
+   ===================================================== */
+const gameWrap = document.getElementById('gameWrap');
+const scoreEl = document.getElementById('score');
+const timerEl = document.getElementById('timer');
+const bestEl = document.getElementById('best');
+const gameOverlay = document.getElementById('gameOverlay');
+const startGameBtn = document.getElementById('startGame');
+
+let gameActive = false;
+let score = 0;
+let timeLeft = 30;
+let spawnTimer, countdownTimer;
+let bestScore = parseInt(localStorage.getItem('loveGameBest') || '0');
+bestEl.textContent = bestScore;
+
+const gameHearts = ['❤️', '💖', '💕', '💗', '💝', '🌹'];
+
+function spawnFallingHeart() {
+  if (!gameActive) return;
+
+  const h = document.createElement('div');
+  h.className = 'falling-heart';
+  h.textContent = gameHearts[Math.floor(Math.random() * gameHearts.length)];
+
+  const wrapW = gameWrap.clientWidth;
+  const x = Math.random() * (wrapW - 50);
+  h.style.left = x + 'px';
+  h.style.top = '-50px';
+
+  const duration = Math.random() * 2 + 3;
+  const startTime = performance.now();
+  const distance = gameWrap.clientHeight + 80;
+
+  function animate(now) {
+    if (!gameActive) { h.remove(); return; }
+    const elapsed = now - startTime;
+    const progress = elapsed / (duration * 1000);
+    if (progress >= 1) { h.remove(); return; }
+    h.style.transform = `translateY(${progress * distance}px) rotate(${progress * 360}deg)`;
+    requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
+
+  h.addEventListener('click', () => {
+    if (!gameActive || h.classList.contains('popped')) return;
+    score++;
+    scoreEl.textContent = score;
+    h.classList.add('popped');
+
+    const pop = document.createElement('div');
+    pop.className = 'score-pop';
+    pop.textContent = '+1';
+    pop.style.left = h.style.left;
+    pop.style.top = h.style.top;
+    gameWrap.appendChild(pop);
+    setTimeout(() => pop.remove(), 800);
+
+    setTimeout(() => h.remove(), 400);
+  });
+
+  gameWrap.appendChild(h);
+}
+
+function startGame() {
+  gameActive = true;
+  score = 0;
+  timeLeft = 30;
+  scoreEl.textContent = '0';
+  timerEl.textContent = '30';
+  gameOverlay.classList.add('hide');
+
+  spawnTimer = setInterval(spawnFallingHeart, 600);
+
+  countdownTimer = setInterval(() => {
+    timeLeft--;
+    timerEl.textContent = timeLeft;
+    if (timeLeft <= 0) endGame();
+  }, 1000);
+}
+
+function endGame() {
+  gameActive = false;
+  clearInterval(spawnTimer);
+  clearInterval(countdownTimer);
+
+  gameWrap.querySelectorAll('.falling-heart').forEach(el => el.remove());
+
+  if (score > bestScore) {
+    bestScore = score;
+    localStorage.setItem('loveGameBest', bestScore);
+    bestEl.textContent = bestScore;
+  }
+
+  const isNewBest = score === bestScore && score > 0;
+  gameOverlay.innerHTML = `
+    <h3>${score >= 20 ? 'Luar Biasa! 🏆' : score >= 10 ? 'Bagus Sekali! 💖' : 'Coba Lagi! 💕'}</h3>
+    <p>Skor kamu: <b style="color:#ff6699;font-size:1.5rem;">${score}</b> hati<br>
+       ${isNewBest ? '🎉 Rekor baru!' : 'Rekor: ' + bestScore}</p>
+    <button class="btn-love" id="startGame">Main Lagi 💘</button>
+  `;
+  gameOverlay.classList.remove('hide');
+  document.getElementById('startGame').addEventListener('click', startGame);
+}
+
+startGameBtn.addEventListener('click', startGame);
+
+/* =====================================================
+   📮 WEBHOOK FORM
+   ===================================================== */
+const webhookForm = document.getElementById('webhookForm');
+const toast = document.getElementById('toast');
+
+function showToast(msg, color) {
+  toast.textContent = msg;
+  toast.style.background = color || 'linear-gradient(135deg, #ff3366, #ff6699)';
+  toast.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => toast.classList.remove('show'), 3500);
+}
+
+webhookForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const pesan = e.target.pesan.value.trim();
+  if (!pesan) return;
+
+  const submitBtn = webhookForm.querySelector('button[type="submit"]');
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = 'Mengirim... 💌';
+  submitBtn.disabled = true;
+
+  try {
+    const payload = {
+      username: 'Surat Cinta 💌',
+      avatar_url: 'https://cdn-icons-png.flaticon.com/512/833/833472.png',
+      embeds: [{
+        title: '💖 Pesan Baru dari Web Cinta',
+        color: 0xff3366,
+        fields: [
+          { name: '🕐 Waktu', value: new Date().toLocaleString('id-ID'), inline: true },
+          { name: '💌 Pesan', value: pesan }
+        ],
+        footer: { text: 'Dikirim dari halaman romantis ❤️ by hanz' }
+      }]
+    };
+
+    if (!WEBHOOK_URL || WEBHOOK_URL.includes('ISI_WEBHOOK_KAMU')) {
+      await new Promise(r => setTimeout(r, 800));
+      showToast('✅ Pesan terkirim! (mode demo)', 'linear-gradient(135deg, #6699ff, #9966ff)');
+      webhookForm.reset();
+    } else {
+      const res = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok || res.status === 204) {
+        showToast('💖 Pesan berhasil terkirim!');
+        webhookForm.reset();
+
+        for (let i = 0; i < 20; i++) {
+          setTimeout(() => {
+            const h = document.createElement('div');
+            h.className = 'float-heart';
+            h.textContent = '💌';
+            h.style.left = Math.random() * 100 + '%';
+            h.style.bottom = '0';
+            h.style.fontSize = (Math.random() * 15 + 20) + 'px';
+            h.style.animationDuration = '3s';
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 3000);
+          }, i * 40);
+        }
+      } else {
+        showToast('⚠️ Gagal mengirim, coba lagi ya', 'linear-gradient(135deg, #ff6633, #ff3366)');
+      }
+    }
+  } catch (err) {
+    console.error(err);
+    showToast('⚠️ Terjadi kesalahan, coba lagi', 'linear-gradient(135deg, #ff6633, #ff3366)');
+  } finally {
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+  }
+});
+</script>
+
+</body>
+</html>
